@@ -4,6 +4,7 @@ import { useState } from "react";
 import Dropzone, { useDropzone } from "react-dropzone";
 import UploadContainer from "components/upload/UploadContainer";
 import UploadInput from "components/upload/UploadInput";
+import PrimaryToggle from "components/toggle/PrimaryToggle";
 
 function App() {
 
@@ -11,6 +12,7 @@ function App() {
   const [height, setHeight] = useState<string>('');
   const [quality, setQuality] = useState<string>('');
   const [file, setFile] = useState<File | null>(null);
+  const [operationToggle, setOperationToggle] = useState<boolean>(false);
   const [isDragActive, setIsDragActive] = useState<boolean>(false);
 
   const handleWidthChange = (event : React.ChangeEvent<HTMLInputElement>) => {
@@ -40,23 +42,32 @@ function App() {
   
   }
 
+  const handleOnOperationToggle = (value : boolean) => {
+    setOperationToggle(value);
+  }
+
   const { getRootProps, getInputProps} = useDropzone({
-    onDrop: handleOnDrop,
-    noClick: true,
-    noKeyboard: true, 
-    accept: { "image/*": [] },
-    onDragEnter: () => setIsDragActive(true),
-    onDragLeave: () => setIsDragActive(false),
-    onDropAccepted: () => setIsDragActive(false),
+      onDrop: handleOnDrop,
+      noClick: true,
+      noKeyboard: true, 
+      accept: { "image/*": [] },
+      onDragEnter: () => setIsDragActive(true),
+      onDragLeave: () => setIsDragActive(false),
+      onDropAccepted: () => setIsDragActive(false),
   });
 
   return (
-   <section>
+   <section className="">
       <UploadContainer 
-        rootProps={getRootProps()} 
+        rootProps={getRootProps({className: "flex flex-col"})} 
         isDragActive={isDragActive}
       >
-        <div>Toggle for compress/resize</div>
+        <PrimaryToggle
+          leftOption="Compress"
+          rightOption="Resize"
+          value={operationToggle}
+          onChange={handleOnOperationToggle}
+        />
         <UploadInput inputProps={getInputProps()} />
         <NumberInput 
           name="height" 
