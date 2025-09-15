@@ -26,7 +26,7 @@ const PrimaryToggle = ({ value, leftOption, rightOption, onChange }: IProps) => 
 
     return (
         <div
-            className="relative flex w-fit rounded-lg gap-4 bg-purple-200 p-2 cursor-pointer select-none"
+            className="relative flex w-fit rounded-lg gap-4 bg-purple-200 p-2 cursor-pointer select-none z-0"
             onClick={handleOnChange}
         >
             {/* Animated slider */}
@@ -41,8 +41,8 @@ const PrimaryToggle = ({ value, leftOption, rightOption, onChange }: IProps) => 
             {/* Left option */}
             <div
                 ref={leftRef}
-                className={`relative z-10 px-4 py-2 rounded-md transition-colors duration-300 ${
-                value ? "text-white" : "text-black"
+                className={`relative z-10 px-4 py-2 rounded-md transition-colors duration-300 text-lg ${
+                value ? "text-white font-semibold" : "text-black font-medium"
                 }`}
             >
                 {leftOption}
@@ -51,8 +51,8 @@ const PrimaryToggle = ({ value, leftOption, rightOption, onChange }: IProps) => 
             {/* Right option */}
             <div
                 ref={rightRef}
-                className={`relative z-10 px-4 py-2 rounded-md transition-colors duration-300 ${
-                !value ? "text-white" : "text-black"
+                className={`relative z-10 px-4 py-2 rounded-md transition-colors duration-300 text-lg ${
+                !value ? "text-white font-semibold" : "text-black font-medium"
                 }`}
             >
                 {rightOption}
