@@ -8,6 +8,10 @@ import PrimaryToggle from "components/toggle/PrimaryToggle";
 import Blob from "components/shapes/Blob";
 import FloatingRectangle from "components/shapes/FloatingRectangle";
 import { SHAPE_COLORS, SHAPE_BLOB_OATHS, SHAPE_RECTANGLE_CONFIGS, BLOB_CONFIGS } from "constants/constants";
+import { ImageResize } from "models/image/imageResize";
+import ImageHttpService from "services/http/imageHttpService";
+import { ImageCompress } from "models/image/imageCompress";
+import FileDownloadHelper from "utils/fileDownloadHelper";
 
 function App() {
 
@@ -30,8 +34,87 @@ function App() {
     setQuality(event.target.value);
   }
 
+
+  const validateResize = () => {
+    if (isNaN(Number(height))) {
+      alert('Please add a height');
+      return;
+    }
+
+    const preparedHeight = Number(height);
+
+    if (preparedHeight <= 0 ) {
+      alert('Height must be greater than 0.')
+      return;
+    }
+
+    if (isNaN(Number(width))) {
+      alert('Please add a height');
+      return;
+    }
+
+    const preparedWidth = Number(width);
+
+    if (preparedWidth <= 0 ) {
+      alert('Width must be greater than 0.')
+      return;
+    }
+  }
+
+  const validateCompress = () => {
+    if (isNaN(Number(quality))) {
+      alert('Please add a quality');
+      return;
+    }
+
+    const preparedQuality = Number(quality);
+
+    if (preparedQuality <= 0 || preparedQuality > 100) {
+      alert('Quality must between 1 and 100 inclusive.')
+      return;
+    }
+  }
+
+  const submitResize = async () => {
+      const preparedWidth = Number(width);
+      const preparedHeight = Number(height);
+
+      const payload : ImageResize = {
+        height: preparedHeight, 
+        width: preparedWidth,
+        file: file!,
+      }
+
+     const response = await ImageHttpService.resize(payload);
+      
+     const blob = response.data;
+
+     FileDownloadHelper.downloadBlob(blob);
+  }
+
+  const submitCompress = async () => {
+      const preparedQuality = Number(quality);
+
+      const payload : ImageCompress = {
+        quality: preparedQuality, 
+        file: file!,
+      }
+
+     const response = await ImageHttpService.compress(payload);
+
+     const blob = response.data;
+
+     FileDownloadHelper.downloadBlob(blob);
+  }
+
   const handleProcessClick = () => {
-    console.log('save');
+    if (operationToggle) {
+      validateCompress();
+      submitCompress();
+    } else {
+      validateResize();
+      submitResize();
+    }
   } 
 
   const handleOnDrop = (acceptedFiles : File[]) => {
