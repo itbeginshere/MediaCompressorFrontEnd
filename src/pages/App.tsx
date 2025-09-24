@@ -1,9 +1,9 @@
-import NumberInput from "components/input/NumberInput";
-import PrimaryButton from "components/button/PrimaryButton";
+import NumberInput from "components/input/controlled/NumberInput";
+import PrimaryButton from "components/button/styled/PrimaryButton";
 import { useState } from "react";
 import { useDropzone } from "react-dropzone";
 import UploadContainer from "components/upload/UploadContainer";
-import UploadInput from "components/upload/UploadInput";
+import UploadInput from "components/input/controlled/UploadInput";
 import PrimaryToggle from "components/toggle/PrimaryToggle";
 import Blob from "components/shapes/Blob";
 import FloatingRectangle from "components/shapes/FloatingRectangle";
@@ -20,7 +20,6 @@ function App() {
   const [quality, setQuality] = useState<string>('');
   const [file, setFile] = useState<File | null>(null);
   const [operationToggle, setOperationToggle] = useState<boolean>(false);
-  const [isDragActive, setIsDragActive] = useState<boolean>(false);
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
 
   const handleWidthChange = (event : React.ChangeEvent<HTMLInputElement>) => {
@@ -122,30 +121,13 @@ function App() {
     }
   } 
 
-  const handleOnDrop = (acceptedFiles : File[]) => {
-  
-    if (acceptedFiles.length === 0) {
-      setFile(null);
-      return;
-    }
-
-    setFile(acceptedFiles.at(-1) ?? null);
-  
+  const onFileAccepted = (acceptedFile : File | null) => {
+      setFile(acceptedFile);
   }
 
   const handleOnOperationToggle = (value : boolean) => {
     setOperationToggle(value);
   }
-
-  const { getRootProps, getInputProps} = useDropzone({
-      onDrop: handleOnDrop,
-      noClick: true,
-      noKeyboard: true, 
-      accept: { "image/*": [] },
-      onDragEnter: () => setIsDragActive(true),
-      onDragLeave: () => setIsDragActive(false),
-      onDropAccepted: () => setIsDragActive(false),
-  });
 
   return (
     <section className="relative flex flex-col h-screen overflow-hidden bg-gradient-to-b from-white to-gray-100">
@@ -172,57 +154,52 @@ function App() {
         ))
       }
       <div className="flex-[1]"></div>
-      <UploadContainer 
-        rootProps={getRootProps({className: "flex flex-col flex-[4] gap-4 items-center justify-start z-20"})} 
-        isDragActive={isDragActive}
-      >
-        <div className="bg-purple-50 border-2 border-purple-700 p-10 flex flex-col justify-center gap-4 rounded-lg">
-          <PrimaryToggle
-            leftOption="Compress"
-            rightOption="Resize"
-            value={operationToggle}
-            onChange={handleOnOperationToggle}
-          />
-          <UploadInput inputProps={getInputProps()} />
-          {
-            !operationToggle && (
-              <>
-              <NumberInput 
-                name="height" 
-                value={height} 
-                onChange={handleHeightChange}
-              />
-              <NumberInput 
-                name="width" 
-                value={width} 
-                onChange={handleWidthChange}
-              />
-              </>
-            )
-          }
-          {
-            operationToggle && (
-              <NumberInput 
-                name="quality" 
-                value={quality} 
-                onChange={handleQualityChange}
-              />
-            )
-          }
-          {
-            isProcessing && (
-              <div>
-                Is Processing
-              </div>
-            )
-          }
-          <PrimaryButton
-              text="PROCESS"
-              type="submit"
-              onClick={handleProcessClick}
-          />
-        </div>
-      </UploadContainer>
+      <div className="bg-purple-50 border-2 border-purple-700 p-10 flex flex-col justify-center gap-4 rounded-lg">
+        <PrimaryToggle
+          leftOption="Compress"
+          rightOption="Resize"
+          value={operationToggle}
+          onChange={handleOnOperationToggle}
+        />
+        <UploadInput onFileAccepted={onFileAccepted}/>
+        {
+          !operationToggle && (
+            <>
+            <NumberInput 
+              name="height" 
+              value={height} 
+              onChange={handleHeightChange}
+            />
+            <NumberInput 
+              name="width" 
+              value={width} 
+              onChange={handleWidthChange}
+            />
+            </>
+          )
+        }
+        {
+          operationToggle && (
+            <NumberInput 
+              name="quality" 
+              value={quality} 
+              onChange={handleQualityChange}
+            />
+          )
+        }
+        {
+          isProcessing && (
+            <div>
+              Is Processing
+            </div>
+          )
+        }
+        <PrimaryButton
+            text="PROCESS"
+            type="submit"
+            onClick={handleProcessClick}
+        />
+      </div>
     </section>
   )
 }

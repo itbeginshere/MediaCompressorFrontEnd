@@ -1,0 +1,51 @@
+import { useStore } from "@tanstack/react-form";
+import { useFieldContext } from "hooks/formContext";
+import { useDropzone } from "react-dropzone"
+
+const FormUploadFileField = () => {
+    
+    const field = useFieldContext<File | null>();
+
+    const errors = useStore(field.store, (state) => state.meta.errors);
+
+    const handleOnDrop = (acceptedFiles : File[]) => {
+  
+        if (acceptedFiles.length === 0) {
+            field.handleChange(null);
+            return;
+        }
+
+        field.handleChange(acceptedFiles.at(-1) ?? null);
+    
+    }
+
+    const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
+        onDrop: handleOnDrop,
+        accept: { "image/*": [] },
+    });
+ 
+    return (
+        <div {...getRootProps()}>
+            <input {...getInputProps()} name={field.name} />
+            <div className="p-4 rounded-md border-2 border-blue-400 border-dashed flex items-center justify-center">
+                <p>
+                    Drag 'n' drop some files here, or click to select files
+                </p>
+            </div>
+            {
+                errors.map((error: string) => (
+                    <div key={error} style={{ color: 'red' }}>
+                        {error}
+                    </div>
+                ))
+            }
+            {
+                acceptedFiles.length > 0 && (
+                    <p>File Selected: {acceptedFiles[0].name}</p>
+                )
+            }
+        </div>
+    )
+}
+
+export default FormUploadFileField;
