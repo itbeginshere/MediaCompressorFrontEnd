@@ -1,10 +1,10 @@
-import {} from "@tanstack/react-form";
 import LinearLoading from "components/indicators/loading/LinearLoading";
 import { useAppForm } from "hooks/form";
 import { ImageCompress } from "models/image/imageCompress";
 import { FormEvent, useState } from "react";
 import ImageHttpService from "services/http/imageHttpService";
 import FileDownloadHelper from "utils/fileDownloadHelper";
+import FormErrorBulider from "utils/formHelper";
 
 interface ImageCompressFormValues extends Omit<ImageCompress, 'file'> {
     file: File | null;
@@ -21,25 +21,22 @@ const ImageCompressForm = () => {
         } as ImageCompressFormValues, 
         validators: {
             onChange: ({ value }) => {
-                const errors = {
-                    fields: {},
-                } as {
-                    fields: Record<string, string>
-                };
-
+                
+                const formErrorBuilder = new FormErrorBulider<ImageCompressFormValues>();
+                
                 if (value.file == null) {
-                    errors.fields.file = 'A file is required';
+                    formErrorBuilder.append('file', 'A file is required')
                 }
-
+                
                 if (value.quality <= 0) {
-                    errors.fields.quality = 'Quality must be greater than 0';
+                    formErrorBuilder.append('quality', 'Quality must be greater than 0')
                 }
-
+                
                 if (value.quality > 100) {
-                    errors.fields.quality = 'Quality must be less than 100';
+                    formErrorBuilder.append('quality', 'Quality must be less than 100')
                 }
 
-                return errors;
+                return formErrorBuilder.errors;
             },
         },
         onSubmit: async ({ value }) => {
@@ -66,9 +63,7 @@ const ImageCompressForm = () => {
     }
 
     return (
-        <form 
-            onSubmit={handleFormSubmit}
-        >
+        <form onSubmit={handleFormSubmit}>
             <LinearLoading loading={isProcessing} />
             <form.AppField 
                 name="file"
