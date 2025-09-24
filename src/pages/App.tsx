@@ -21,6 +21,7 @@ function App() {
   const [file, setFile] = useState<File | null>(null);
   const [operationToggle, setOperationToggle] = useState<boolean>(false);
   const [isDragActive, setIsDragActive] = useState<boolean>(false);
+  const [isProcessing, setIsProcessing] = useState<boolean>(false);
 
   const handleWidthChange = (event : React.ChangeEvent<HTMLInputElement>) => {
     setWidth(event.target.value);
@@ -84,10 +85,14 @@ function App() {
         width: preparedWidth,
         file: file!,
       }
+    
+      setIsProcessing(true);
 
-     const response = await ImageHttpService.resize(payload);
-      
-     FileDownloadHelper.downloadBlob(response);
+      const response = await ImageHttpService.resize(payload);
+
+      FileDownloadHelper.downloadBlob(response);
+
+      setIsProcessing(false);
   }
 
   const submitCompress = async () => {
@@ -98,9 +103,13 @@ function App() {
         file: file!,
       }
 
-     const response = await ImageHttpService.compress(payload);
+      setIsProcessing(true);
 
-     FileDownloadHelper.downloadBlob(response);
+      const response = await ImageHttpService.compress(payload);
+
+      FileDownloadHelper.downloadBlob(response);
+
+      setIsProcessing(false);
   }
 
   const handleProcessClick = () => {
@@ -198,6 +207,13 @@ function App() {
                 value={quality} 
                 onChange={handleQualityChange}
               />
+            )
+          }
+          {
+            isProcessing && (
+              <div>
+                Is Processing
+              </div>
             )
           }
           <PrimaryButton
