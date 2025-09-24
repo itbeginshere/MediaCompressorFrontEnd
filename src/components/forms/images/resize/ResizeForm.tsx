@@ -86,3 +86,5 @@ const ImageResizeForm = () => {
     );
 
 }
+
+export default ImageResizeForm;

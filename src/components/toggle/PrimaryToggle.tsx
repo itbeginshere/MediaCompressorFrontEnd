@@ -1,14 +1,16 @@
-import React, { useRef, useLayoutEffect, useState } from "react";
+import { useRef, useLayoutEffect, useState } from "react";
 
-interface IProps {
-    value: boolean;
-    leftOption: string;
-    rightOption: string;
-    onChange: (value: boolean) => void;
+interface IProps<T> {
+    currentOption: T;
+    leftOption: T;
+    rightOption: T;
+    onChange: (value: T) => void;
 }
 
-const PrimaryToggle = ({ value, leftOption, rightOption, onChange }: IProps) => {
+const PrimaryToggle = <T extends string,>(props : IProps<T>) => {
   
+    const { currentOption, leftOption, rightOption, onChange } = props;
+
     const leftRef = useRef<HTMLDivElement>(null);
     const rightRef = useRef<HTMLDivElement>(null);
 
@@ -21,7 +23,7 @@ const PrimaryToggle = ({ value, leftOption, rightOption, onChange }: IProps) => 
     }, [leftOption, rightOption]);
 
     const handleOnChange = () => {
-        onChange(!value);
+        onChange(currentOption === leftOption ? rightOption : leftOption);
     };
 
     return (
@@ -33,8 +35,8 @@ const PrimaryToggle = ({ value, leftOption, rightOption, onChange }: IProps) => 
             <div
                 className="absolute top-2 bottom-2 rounded-md bg-purple-400 transition-all duration-300 ease-in-out"
                 style={{
-                width: value ? leftWidth : rightWidth,
-                left: value ? "0.5rem" : `calc(100% - ${rightWidth}px - 0.5rem)`,
+                    width: currentOption === leftOption  ? leftWidth : rightWidth,
+                    left: currentOption === leftOption  ? "0.5rem" : `calc(100% - ${rightWidth}px - 0.5rem)`,
                 }}
             />
 
@@ -42,7 +44,7 @@ const PrimaryToggle = ({ value, leftOption, rightOption, onChange }: IProps) => 
             <div
                 ref={leftRef}
                 className={`relative z-10 px-4 py-2 rounded-md transition-colors duration-300 text-lg ${
-                value ? "text-white font-semibold" : "text-black font-medium"
+                    currentOption === leftOption  ? "text-white font-semibold" : "text-black font-medium"
                 }`}
             >
                 {leftOption}
@@ -52,7 +54,7 @@ const PrimaryToggle = ({ value, leftOption, rightOption, onChange }: IProps) => 
             <div
                 ref={rightRef}
                 className={`relative z-10 px-4 py-2 rounded-md transition-colors duration-300 text-lg ${
-                !value ? "text-white font-semibold" : "text-black font-medium"
+                    currentOption === rightOption ? "text-white font-semibold" : "text-black font-medium"
                 }`}
             >
                 {rightOption}
