@@ -1,41 +1,24 @@
-import { AnyFieldApi } from "@tanstack/react-form";
 import {} from "@tanstack/react-form";
+import LinearLoading from "components/indicators/loading/LinearLoading";
 import { useAppForm } from "hooks/form";
 import { ImageCompress } from "models/image/imageCompress";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { FormEvent, useState } from "react";
 import ImageHttpService from "services/http/imageHttpService";
 import FileDownloadHelper from "utils/fileDownloadHelper";
-
-interface IProps {
-    file : File | null;
-}
-
-function FieldInfo({ field }: { field: AnyFieldApi }) {
-  return (
-    <>
-      {field.state.meta.isTouched && !field.state.meta.isValid ? (
-        <em>{field.state.meta.errors.join(',')}</em>
-      ) : null}
-      {field.state.meta.isValidating ? 'Validating...' : null}
-    </>
-  )
-}
 
 interface ImageCompressFormValues extends Omit<ImageCompress, 'file'> {
     file: File | null;
 }
 
-const ImageCompressForm = (props : IProps) => {
-    
-    const { file } = props;
+const ImageCompressForm = () => {
 
     const [isProcessing, setIsProcessing] = useState<boolean>(false);
 
     const form = useAppForm({
         defaultValues: {
-            file: file, 
+            file: null, 
             quality: 0,
-        }, 
+        } as ImageCompressFormValues, 
         validators: {
             onChange: ({ value }) => {
                 const errors = {
@@ -75,28 +58,30 @@ const ImageCompressForm = (props : IProps) => {
             setIsProcessing(false);
         }
     })
+
+    const handleFormSubmit = (event : FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        event.stopPropagation();
+        form.handleSubmit();
+    }
+
     return (
-        <div>
-          <form 
-            onSubmit={(event : FormEvent<HTMLFormElement>) => {
-                event.preventDefault();
-                event.stopPropagation();
-                form.handleSubmit();
-            }}
-          >
-                <form.AppField 
-                    name="file"
-                    children={(field) => <field.FormUploadFileField />}
-                />
-                <form.AppField 
-                    name="quality"
-                    children={(field) => <field.FormTextField label={'Quality'} />}
-                />
-                <form.AppForm>
-                    <form.FormSubscribeButton label={'Submit'} />
-                </form.AppForm>
-          </form>
-        </div>
+        <form 
+            onSubmit={handleFormSubmit}
+        >
+            <LinearLoading loading={isProcessing} />
+            <form.AppField 
+                name="file"
+                children={(field) => <field.FormUploadFileField />}
+            />
+            <form.AppField 
+                name="quality"
+                children={(field) => <field.FormTextField label={'Quality'} type={"number"} />}
+            />
+            <form.AppForm>
+                <form.FormSubscribeButton label={'Submit'} />
+            </form.AppForm>
+        </form>
     );
 }
 

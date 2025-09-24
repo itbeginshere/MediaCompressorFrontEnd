@@ -4,11 +4,12 @@ import { ChangeEvent } from 'react';
 
 interface IProps {
     label : string;
+    type ?: 'text' | 'number';
 }
 
 const FormTextField = (props: IProps) => {
     
-    const { label } = props;
+    const { label, type = 'text' } = props;
     
     const field = useFieldContext<string>();
 
@@ -24,6 +25,7 @@ const FormTextField = (props: IProps) => {
             <input
                 className={`border-2 p-2 rounded-md ${errors.length > 0 ? 'border-red-500 focus:border-red-500 focus:outline-red-500 focus:bg-red-200 ' : 'border-purple-200 focus:border-purple-500 focus:outline-purple-500 focus:bg-purple-200'}`}
                 name={field.name}
+                type={type}
                 value={field.state.value}
                 onChange={onChange}
                 onBlur={field.handleBlur}

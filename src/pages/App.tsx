@@ -12,6 +12,7 @@ import ImageHttpService from "services/http/imageHttpService";
 import { ImageCompress } from "models/image/imageCompress";
 import FileDownloadHelper from "utils/fileDownloadHelper";
 import { BLOB_CONFIGS, SHAPE_RECTANGLE_CONFIGS } from "constants/shape_constants";
+import ImageCompressForm from "components/forms/images/compress/CompressForm";
 
 function App() {
 
@@ -161,44 +162,7 @@ function App() {
           value={operationToggle}
           onChange={handleOnOperationToggle}
         />
-        <UploadInput onFileAccepted={onFileAccepted}/>
-        {
-          !operationToggle && (
-            <>
-            <NumberInput 
-              name="height" 
-              value={height} 
-              onChange={handleHeightChange}
-            />
-            <NumberInput 
-              name="width" 
-              value={width} 
-              onChange={handleWidthChange}
-            />
-            </>
-          )
-        }
-        {
-          operationToggle && (
-            <NumberInput 
-              name="quality" 
-              value={quality} 
-              onChange={handleQualityChange}
-            />
-          )
-        }
-        {
-          isProcessing && (
-            <div>
-              Is Processing
-            </div>
-          )
-        }
-        <PrimaryButton
-            text="PROCESS"
-            type="submit"
-            onClick={handleProcessClick}
-        />
+       <ImageCompressForm />
       </div>
     </section>
   )
