@@ -1,0 +1,1 @@
+export const CONTENT_TYPE_MULTI_PART_FORM_DATA = 'multipart/form-data';

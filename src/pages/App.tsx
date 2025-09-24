@@ -7,11 +7,11 @@ import UploadInput from "components/upload/UploadInput";
 import PrimaryToggle from "components/toggle/PrimaryToggle";
 import Blob from "components/shapes/Blob";
 import FloatingRectangle from "components/shapes/FloatingRectangle";
-import { SHAPE_COLORS, SHAPE_BLOB_OATHS, SHAPE_RECTANGLE_CONFIGS, BLOB_CONFIGS } from "constants/constants";
 import { ImageResize } from "models/image/imageResize";
 import ImageHttpService from "services/http/imageHttpService";
 import { ImageCompress } from "models/image/imageCompress";
 import FileDownloadHelper from "utils/fileDownloadHelper";
+import { BLOB_CONFIGS, SHAPE_RECTANGLE_CONFIGS } from "constants/shape_constants";
 
 function App() {
 
@@ -87,9 +87,7 @@ function App() {
 
      const response = await ImageHttpService.resize(payload);
       
-     const blob = response.data;
-
-     FileDownloadHelper.downloadBlob(blob);
+     FileDownloadHelper.downloadBlob(response);
   }
 
   const submitCompress = async () => {
@@ -102,9 +100,7 @@ function App() {
 
      const response = await ImageHttpService.compress(payload);
 
-     const blob = response.data;
-
-     FileDownloadHelper.downloadBlob(blob);
+     FileDownloadHelper.downloadBlob(response);
   }
 
   const handleProcessClick = () => {
@@ -124,7 +120,7 @@ function App() {
       return;
     }
 
-    setFile(acceptedFiles[0]);
+    setFile(acceptedFiles.at(-1) ?? null);
   
   }
 
