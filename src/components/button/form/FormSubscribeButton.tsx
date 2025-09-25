@@ -16,7 +16,7 @@ const FormSubscribeButton = (props: IProps) => {
             {(isSubmitting) => 
                 <button 
                     disabled={isSubmitting}
-                    className="flex flex-row gap-2 bg-orange-400 hover:bg-purple-400 px-6 py-3 rounded-md text-white font-semibold text-lg"
+                    className="flex flex-row gap-2 bg-orange-400 hover:bg-purple-400 px-6 py-3 rounded-md text-white font-semibold text-lg justify-center"
                 >
                     <CircularLoading isLoading={isSubmitting} />
                     {isSubmitting ? 'Processing' : label}

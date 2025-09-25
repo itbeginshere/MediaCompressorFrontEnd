@@ -18,7 +18,7 @@ function App() {
   }
 
   return (
-    <section className="relative flex flex-col h-screen overflow-hidden bg-gradient-to-b from-white to-gray-100">
+    <section className="relative flex flex-col justify-center items-center h-screen overflow-hidden bg-gradient-to-b from-white to-gray-100">
        {
         currentOption === 'Compress' && BLOB_CONFIGS.map((cfg, i) => (
           <Blob
@@ -41,8 +41,7 @@ function App() {
           />
         ))
       }
-      <div className="flex-[1]"></div>
-      <div className="bg-purple-50 border-2 border-purple-700 p-10 flex flex-col justify-center gap-4 rounded-lg">
+      <div className="bg-purple-50 border-2 border-purple-700 p-10 flex flex-col justify-center gap-4 rounded-lg max-w-lg">
         <PrimaryToggle<ProcessOptions>
           leftOption="Compress"
           rightOption="Resize"

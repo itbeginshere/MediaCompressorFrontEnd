@@ -74,7 +74,10 @@ const ImageResizeForm = () => {
     }
 
     return (
-        <form onSubmit={handleFormSubmit}>
+        <form 
+            className="flex flex-col gap-4"
+            onSubmit={handleFormSubmit}
+        >
             <LinearLoading loading={isProcessing} />
             <form.AppField 
                 name="file"
