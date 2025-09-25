@@ -1,6 +1,7 @@
 import { useStore } from "@tanstack/react-form";
 import { useFieldContext } from "hooks/formContext";
-import { useDropzone } from "react-dropzone"
+import { FileRejection, useDropzone } from "react-dropzone"
+import { toast } from "react-toastify";
 
 const FormUploadFileField = () => {
     
@@ -8,8 +9,15 @@ const FormUploadFileField = () => {
 
     const errors = useStore(field.store, (state) => state.meta.errors);
 
-    const handleOnDrop = (acceptedFiles : File[]) => {
+    const handleOnDrop = (acceptedFiles : File[], fileRejections : FileRejection[]) => {
   
+         fileRejections.forEach((rej) => {
+            toast(`File ${rej.file.name} was rejected. Please only upload images in the following formats: .jpg, .jpeg, .png, .webp, .gif`, { type: "error" });
+            rej.errors.forEach((e: any) => {
+                console.error(`${e.message}`);
+            });
+        });
+
         if (acceptedFiles.length === 0) {
             field.handleChange(null);
             return;
