@@ -41,18 +41,25 @@ const ImageCompressForm = () => {
         },
         onSubmit: async ({ value }) => {
           
-            const payload : ImageCompress = {
-                quality: value.quality, 
-                file: value.file!,
+            try {
+                const payload : ImageCompress = {
+                    quality: value.quality, 
+                    file: value.file!,
+                }
+        
+                setIsProcessing(true);
+            
+                const response = await ImageHttpService.compress(payload);
+            
+                FileDownloadHelper.downloadBlob(response);
+            
+                setIsProcessing(false);
+            } catch(error) {
+                console.log(error);
+            } finally {
+                setIsProcessing(false);
             }
-    
-            setIsProcessing(true);
-        
-            const response = await ImageHttpService.compress(payload);
-        
-            FileDownloadHelper.downloadBlob(response);
-        
-            setIsProcessing(false);
+            
         }
     })
 

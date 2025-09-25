@@ -33,7 +33,7 @@ const ImageResizeForm = () => {
                     formErrorBuilder.append('width', 'Width must be greater than 0')
                 }
                 
-                if (value.height > 100) {
+                if (value.width <= 0) {
                     formErrorBuilder.append('height', 'Height must be greater than 0')
                 }
 
@@ -42,19 +42,26 @@ const ImageResizeForm = () => {
         },
         onSubmit: async ({ value }) => {
                 
-            const payload : ImageResize = {
-                width: value.width, 
-                height: value.height, 
-                file: value.file!,
+            try {
+                const payload : ImageResize = {
+                    width: value.width, 
+                    height: value.height, 
+                    file: value.file!,
+                }
+        
+                setIsProcessing(true);
+            
+                const response = await ImageHttpService.resize(payload);
+            
+                FileDownloadHelper.downloadBlob(response);
+            
+                setIsProcessing(false);
+            } catch(error) {
+                console.log(error);
+            } finally {
+                setIsProcessing(false);
             }
-    
-            setIsProcessing(true);
-        
-            const response = await ImageHttpService.resize(payload);
-        
-            FileDownloadHelper.downloadBlob(response);
-        
-            setIsProcessing(false);
+            
         }
     })
 
