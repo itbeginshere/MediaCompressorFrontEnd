@@ -5,6 +5,7 @@ import FloatingRectangle from "components/shapes/FloatingRectangle";
 import { BLOB_CONFIGS, SHAPE_RECTANGLE_CONFIGS } from "constants/shape_constants";
 import ImageCompressForm from "components/forms/images/compress/CompressForm";
 import ImageResizeForm from "components/forms/images/resize/ResizeForm";
+import { ToastContainer } from "react-toastify";
 
 type ProcessOptions = 'Compress' | 'Resize';
 
@@ -59,6 +60,7 @@ function App() {
           )
         }
       </div>
+       <ToastContainer />
     </section>
   )
 }

@@ -2,10 +2,10 @@ import LinearLoading from "components/indicators/loading/LinearLoading";
 import { useAppForm } from "hooks/form";
 import { ImageResize } from "models/image/imageResize";
 import { FormEvent, useState } from "react";
+import { toast } from "react-toastify";
 import ImageHttpService from "services/http/imageHttpService";
 import FileDownloadHelper from "utils/fileDownloadHelper";
 import FormErrorBulider from "utils/formHelper";
-import FormHelper from "utils/formHelper";
 
 interface ImageResizeFormValues extends Omit<ImageResize, 'file'> {
     file : File | null;
@@ -33,7 +33,7 @@ const ImageResizeForm = () => {
                     formErrorBuilder.append('width', 'Width must be greater than 0')
                 }
                 
-                if (value.width <= 0) {
+                if (value.height <= 0) {
                     formErrorBuilder.append('height', 'Height must be greater than 0')
                 }
 
@@ -43,6 +43,7 @@ const ImageResizeForm = () => {
         onSubmit: async ({ value }) => {
                 
             try {
+
                 const payload : ImageResize = {
                     width: value.width, 
                     height: value.height, 
@@ -57,15 +58,16 @@ const ImageResizeForm = () => {
             
                 setIsProcessing(false);
             } catch(error) {
-                console.log(error);
+                toast("An error occurred while resizing the image", { type: "error" });
+                console.error(error);
             } finally {
                 setIsProcessing(false);
             }
-            
+
         }
     })
 
-      const handleFormSubmit = (event : FormEvent<HTMLFormElement>) => {
+    const handleFormSubmit = (event : FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         event.stopPropagation();
         form.handleSubmit();

@@ -2,6 +2,7 @@ import LinearLoading from "components/indicators/loading/LinearLoading";
 import { useAppForm } from "hooks/form";
 import { ImageCompress } from "models/image/imageCompress";
 import { FormEvent, useState } from "react";
+import { toast } from "react-toastify";
 import ImageHttpService from "services/http/imageHttpService";
 import FileDownloadHelper from "utils/fileDownloadHelper";
 import FormErrorBulider from "utils/formHelper";
@@ -55,11 +56,12 @@ const ImageCompressForm = () => {
             
                 setIsProcessing(false);
             } catch(error) {
-                console.log(error);
+                toast("An error occurred while compressing the image", { type: "error" });
+                console.error(error);
             } finally {
                 setIsProcessing(false);
             }
-            
+
         }
     })
 
