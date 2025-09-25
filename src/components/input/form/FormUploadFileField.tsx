@@ -21,7 +21,12 @@ const FormUploadFileField = () => {
 
     const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
         onDrop: handleOnDrop,
-        accept: { "image/*": [] },
+        accept: { 
+            "image/jpeg": [".jpg", ".jpeg"], 
+            "image/png": [".png"], 
+            "image/webp": [".webp"],
+            "image/gif": [".gif"],
+        },
     });
  
     return (

@@ -40,7 +40,7 @@ function App() {
           />
         ))
       }
-      <div className="bg-purple-50 border-2 border-purple-700 p-10 flex flex-col justify-center gap-4 rounded-lg max-w-lg z-0">
+      <div className="bg-purple-50 border-2 border-purple-700 p-10 flex flex-col justify-center items-center gap-4 rounded-lg max-w-lg z-0">
         <PrimaryToggle<ProcessOptions>
           leftOption="Compress"
           rightOption="Resize"
