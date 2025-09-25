@@ -1,7 +1,7 @@
 import { useState } from "react";
 import PrimaryToggle from "components/toggle/PrimaryToggle";
-import Blob from "components/shapes/Blob";
-import FloatingRectangle from "components/shapes/FloatingRectangle";
+import CompressRectangle from "components/shapes/CompressRectangle";
+import ResizeRectangle from "components/shapes/ResizeRectangle";
 import { BLOB_CONFIGS, SHAPE_RECTANGLE_CONFIGS } from "constants/shape_constants";
 import ImageCompressForm from "components/forms/images/compress/CompressForm";
 import ImageResizeForm from "components/forms/images/resize/ResizeForm";
@@ -21,18 +21,17 @@ function App() {
     <section className="relative flex flex-col justify-center items-center h-screen overflow-hidden bg-gradient-to-b from-white to-gray-100">
        {
         currentOption === 'Compress' && BLOB_CONFIGS.map((cfg, i) => (
-          <Blob
+          <CompressRectangle
             key={i}
             size={cfg.size}
             color={cfg.color}
             initialPosition={cfg.initialPosition}
-            path={cfg.path}
           />
         ))
       }
       {
         currentOption === 'Resize' && SHAPE_RECTANGLE_CONFIGS.map((cfg, i) => (
-          <FloatingRectangle
+          <ResizeRectangle
             key={i}
             width={cfg.width}
             height={cfg.height}
@@ -41,7 +40,7 @@ function App() {
           />
         ))
       }
-      <div className="bg-purple-50 border-2 border-purple-700 p-10 flex flex-col justify-center gap-4 rounded-lg max-w-lg">
+      <div className="bg-purple-50 border-2 border-purple-700 p-10 flex flex-col justify-center gap-4 rounded-lg max-w-lg z-0">
         <PrimaryToggle<ProcessOptions>
           leftOption="Compress"
           rightOption="Resize"

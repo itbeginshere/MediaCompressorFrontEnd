@@ -28,7 +28,7 @@ const PrimaryToggle = <T extends string,>(props : IProps<T>) => {
 
     return (
         <div
-            className="relative flex w-fit rounded-lg gap-4 bg-purple-200 p-2 cursor-pointer select-none z-0"
+            className="relative flex w-fit rounded-lg gap-4 bg-purple-200 p-2 cursor-pointer select-none"
             onClick={handleOnChange}
         >
             {/* Animated slider */}
