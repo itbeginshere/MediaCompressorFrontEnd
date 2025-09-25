@@ -1,5 +1,5 @@
 
-export type FormErrors<T> = { fields: Partial<Record<keyof T, string>>  };
+export type FormErrors<T> = { fields: Partial<Record<keyof T, string>> };
 
 export default class FormErrorBulider<T> {
     

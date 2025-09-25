@@ -48,8 +48,16 @@ function App() {
           currentOption={currentOption}
           onChange={handleOnOptionToggle}
         />
-       <ImageCompressForm />
-       <ImageResizeForm />
+        {
+          currentOption === 'Compress' &&  (
+            <ImageCompressForm />
+          )
+        }
+         {
+          currentOption === 'Resize' &&  (
+            <ImageResizeForm />
+          )
+        }
       </div>
     </section>
   )
