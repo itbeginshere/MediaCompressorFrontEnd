@@ -6,10 +6,10 @@ interface IProps {
   initialPosition: { top: string; left: string };
 }
 
-const CompressRectangle = (props: IProps) =>  {
-  
+const CompressRectangle = (props: IProps) => {
+
     const { size, color, initialPosition } = props;
-  
+
     const [style, setStyle] = useState<CSSProperties>({});
 
     useEffect(() => {
@@ -25,7 +25,7 @@ const CompressRectangle = (props: IProps) =>  {
                 opacity: 0.5 + Math.random() * 0.5,
                 transform: `translate(${Math.random() * 150 - 75}px, ${
                     Math.random() * 150 - 75
-                }px) scale(${0.5 + Math.random() * 2})`, 
+                }px) scale(${0.5 + Math.random() * 2})`,
                 transition: `transform ${2 + Math.random() * 2}s ease-in-out, opacity ${
                     2 + Math.random() * 2
                 }s ease-in-out`,
@@ -33,7 +33,7 @@ const CompressRectangle = (props: IProps) =>  {
         };
 
         randomize();
-        const interval = setInterval(randomize, 2500); 
+        const interval = setInterval(randomize, 2500);
         return () => clearInterval(interval);
     }, [initialPosition, size, color]);
 

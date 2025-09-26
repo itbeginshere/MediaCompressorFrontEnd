@@ -1,53 +1,53 @@
 export const BLOB_CONFIGS = [
-    { 
-        size: 180, 
-        color: "#60A5FA", 
-        initialPosition: { top: "10%", left: "15%" }, 
+    {
+        size: 180,
+        color: "#60A5FA",
+        initialPosition: { top: "10%", left: "15%" },
     },
-    { 
-        size: 150, 
-        color: "#F472B6", 
-        initialPosition: { top: "40%", left: "60%" }, 
+    {
+        size: 150,
+        color: "#F472B6",
+        initialPosition: { top: "40%", left: "60%" },
     },
-    { 
-        size: 200, 
-        color: "#34D399", 
-        initialPosition: { top: "20%", left: "30%" }, 
+    {
+        size: 200,
+        color: "#34D399",
+        initialPosition: { top: "20%", left: "30%" },
     },
-    { 
-        size: 160, 
-        color: "#FBBF24", 
-        initialPosition: { top: "55%", left: "25%" }, 
+    {
+        size: 160,
+        color: "#FBBF24",
+        initialPosition: { top: "55%", left: "25%" },
     },
-    { 
-        size: 140, 
-        color: "#A78BFA", 
-        initialPosition: { top: "70%", left: "60%" }, 
+    {
+        size: 140,
+        color: "#A78BFA",
+        initialPosition: { top: "70%", left: "60%" },
     },
-    { 
-        size: 170, 
-        color: "#F87171", 
-        initialPosition: { top: "15%", left: "70%" }, 
+    {
+        size: 170,
+        color: "#F87171",
+        initialPosition: { top: "15%", left: "70%" },
     },
-    { 
-        size: 190, 
-        color: "#22D3EE", 
-        initialPosition: { top: "35%", left: "45%" }, 
+    {
+        size: 190,
+        color: "#22D3EE",
+        initialPosition: { top: "35%", left: "45%" },
     },
-    { 
-        size: 160, 
-        color: "#FBBF24", 
-        initialPosition: { top: "60%", left: "20%" }, 
+    {
+        size: 160,
+        color: "#FBBF24",
+        initialPosition: { top: "60%", left: "20%" },
     },
-    { 
-        size: 180, 
-        color: "#C084FC", 
-        initialPosition: { top: "25%", left: "55%" }, 
+    {
+        size: 180,
+        color: "#C084FC",
+        initialPosition: { top: "25%", left: "55%" },
     },
-    { 
-        size: 150, 
-        color: "#34D399", 
-        initialPosition: { top: "50%", left: "75%" }, 
+    {
+        size: 150,
+        color: "#34D399",
+        initialPosition: { top: "50%", left: "75%" },
     },
 ];
 

@@ -1,11 +1,11 @@
 interface IProps {
-    isLoading : boolean;
+    isLoading: boolean;
 }
 
-const CircularLoading = (props : IProps) => {
-    
+const CircularLoading = (props: IProps) => {
+
     const { isLoading } = props;
-    
+
     if (!isLoading) return null;
 
     return (

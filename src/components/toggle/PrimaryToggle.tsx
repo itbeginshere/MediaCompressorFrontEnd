@@ -7,8 +7,8 @@ interface IProps<T> {
     onChange: (value: T) => void;
 }
 
-const PrimaryToggle = <T extends string,>(props : IProps<T>) => {
-  
+const PrimaryToggle = <T extends string,>(props: IProps<T>) => {
+
     const { currentOption, leftOption, rightOption, onChange } = props;
 
     const leftRef = useRef<HTMLDivElement>(null);
@@ -35,8 +35,8 @@ const PrimaryToggle = <T extends string,>(props : IProps<T>) => {
             <div
                 className="absolute inset-y-2 rounded-md bg-purple-400 transition-all duration-300 ease-in-out"
                 style={{
-                    width: currentOption === leftOption  ? leftWidth : rightWidth,
-                    left: currentOption === leftOption  ? "0.5rem" : `calc(100% - ${rightWidth}px - 0.5rem)`,
+                    width: currentOption === leftOption ? leftWidth : rightWidth,
+                    left: currentOption === leftOption ? "0.5rem" : `calc(100% - ${rightWidth}px - 0.5rem)`,
                 }}
             />
 
@@ -44,7 +44,7 @@ const PrimaryToggle = <T extends string,>(props : IProps<T>) => {
             <div
                 ref={leftRef}
                 className={`relative z-10 rounded-md px-4 py-2 text-lg transition-colors duration-300 ${
-                    currentOption === leftOption  ? "font-semibold text-white" : "font-medium text-black"
+                    currentOption === leftOption ? "font-semibold text-white" : "font-medium text-black"
                 }`}
             >
                 {leftOption}

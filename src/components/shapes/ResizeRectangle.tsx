@@ -8,7 +8,7 @@ interface Props {
 }
 
 const ResizeRectangle = (props: Props) => {
-  
+
     const { width, height, color, initialPosition } = props;
 
     const [style, setStyle] = useState<CSSProperties>({});
@@ -34,8 +34,8 @@ const ResizeRectangle = (props: Props) => {
             });
         };
 
-        randomize(); 
-        const interval = setInterval(randomize, 3000); 
+        randomize();
+        const interval = setInterval(randomize, 3000);
         return () => clearInterval(interval);
     }, [initialPosition, width, height, color]);
 
