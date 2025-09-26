@@ -8,7 +8,7 @@ import FileDownloadHelper from "utils/fileDownloadHelper";
 import FormErrorBulider from "utils/formHelper";
 
 interface ImageResizeFormValues extends Omit<ImageResize, 'file'> {
-    file : File | null;
+    file: File | null;
 }
 
 const ImageResizeForm = () => {
@@ -17,22 +17,22 @@ const ImageResizeForm = () => {
 
     const form = useAppForm({
         defaultValues: {
-            file: null, 
-            width: 0, 
-            height: 0, 
+            file: null,
+            width: 1920,
+            height: 1080,
         } as ImageResizeFormValues,
         validators: {
             onChange: ({ value }) => {
                 const formErrorBuilder = new FormErrorBulider<ImageResizeFormValues>();
-                                
+
                 if (value.file == null) {
                     formErrorBuilder.append('file', 'A file is required')
                 }
-                
+
                 if (value.width <= 0) {
                     formErrorBuilder.append('width', 'Width must be greater than 0')
                 }
-                
+
                 if (value.height <= 0) {
                     formErrorBuilder.append('height', 'Height must be greater than 0')
                 }
@@ -41,23 +41,23 @@ const ImageResizeForm = () => {
             }
         },
         onSubmit: async ({ value }) => {
-                
+
             try {
 
-                const payload : ImageResize = {
-                    width: value.width, 
-                    height: value.height, 
+                const payload: ImageResize = {
+                    width: value.width,
+                    height: value.height,
                     file: value.file!,
                 }
-        
+
                 setIsProcessing(true);
-            
+
                 const response = await ImageHttpService.resize(payload);
-            
+
                 FileDownloadHelper.downloadBlob(response);
-            
+
                 setIsProcessing(false);
-            } catch(error) {
+            } catch (error) {
                 toast("An error occurred while resizing the image", { type: "error" });
                 console.error(error);
             } finally {
@@ -67,30 +67,36 @@ const ImageResizeForm = () => {
         }
     })
 
-    const handleFormSubmit = (event : FormEvent<HTMLFormElement>) => {
+    const handleFormSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         event.stopPropagation();
         form.handleSubmit();
     }
 
     return (
-        <form 
+        <form
             className="flex flex-col gap-4"
             onSubmit={handleFormSubmit}
         >
             <LinearLoading loading={isProcessing} />
-            <form.AppField 
+            <form.AppField
                 name="file"
-                children={(field) => <field.FormUploadFileField />}
-            />
-            <form.AppField 
+            >
+                {(field) => <field.FormUploadFileField />}
+            </form.AppField>
+
+            <form.AppField
                 name="width"
-                children={(field) => <field.FormTextField label={'Width'} type={"number"} />}
-            />
-            <form.AppField 
+            >
+                {(field) => <field.FormTextField label={'Width'} type={"number"} min={1} />}
+            </form.AppField>
+
+            <form.AppField
                 name="height"
-                children={(field) => <field.FormTextField label={'Height'} type={"number"} />}
-            />
+            >
+                {(field) => <field.FormTextField label={'Height'} type={"number"} min={1} />}
+            </form.AppField>
+
             <form.AppForm>
                 <form.FormSubscribeButton label={'Submit'} />
             </form.AppForm>

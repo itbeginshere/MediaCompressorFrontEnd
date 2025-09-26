@@ -1,5 +1,5 @@
 export interface ImageResize {
-    file : File;
-    height : number;
-    width : number;
+    file: File;
+    height: number;
+    width: number;
 }

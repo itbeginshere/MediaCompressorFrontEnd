@@ -1,18 +1,19 @@
+/* eslint-disable tailwindcss/no-custom-classname */
 
 interface IProps {
-    loading : boolean;
+    loading: boolean;
 }
 
-const LinearLoading = (props : IProps) => {
+const LinearLoading = (props: IProps) => {
 
     const { loading } = props;
 
     if (!loading) return null;
 
     return (
-        <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden relative">
+        <div className="relative h-2 w-full overflow-hidden rounded-full bg-gray-200">
             <div className="absolute inset-0">
-                <div className="h-2 bg-blue-500 animate-indeterminate" />
+                <div className="animate-indeterminate h-2 bg-blue-500" />
             </div>
             <style>
                 {`

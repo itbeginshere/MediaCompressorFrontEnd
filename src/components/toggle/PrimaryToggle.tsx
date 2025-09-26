@@ -28,12 +28,12 @@ const PrimaryToggle = <T extends string,>(props : IProps<T>) => {
 
     return (
         <div
-            className="relative flex w-fit rounded-lg gap-4 bg-purple-200 p-2 cursor-pointer select-none"
+            className="relative flex w-fit cursor-pointer select-none gap-4 rounded-lg bg-purple-200 p-2"
             onClick={handleOnChange}
         >
             {/* Animated slider */}
             <div
-                className="absolute top-2 bottom-2 rounded-md bg-purple-400 transition-all duration-300 ease-in-out"
+                className="absolute inset-y-2 rounded-md bg-purple-400 transition-all duration-300 ease-in-out"
                 style={{
                     width: currentOption === leftOption  ? leftWidth : rightWidth,
                     left: currentOption === leftOption  ? "0.5rem" : `calc(100% - ${rightWidth}px - 0.5rem)`,
@@ -43,8 +43,8 @@ const PrimaryToggle = <T extends string,>(props : IProps<T>) => {
             {/* Left option */}
             <div
                 ref={leftRef}
-                className={`relative z-10 px-4 py-2 rounded-md transition-colors duration-300 text-lg ${
-                    currentOption === leftOption  ? "text-white font-semibold" : "text-black font-medium"
+                className={`relative z-10 rounded-md px-4 py-2 text-lg transition-colors duration-300 ${
+                    currentOption === leftOption  ? "font-semibold text-white" : "font-medium text-black"
                 }`}
             >
                 {leftOption}
@@ -53,8 +53,8 @@ const PrimaryToggle = <T extends string,>(props : IProps<T>) => {
             {/* Right option */}
             <div
                 ref={rightRef}
-                className={`relative z-10 px-4 py-2 rounded-md transition-colors duration-300 text-lg ${
-                    currentOption === rightOption ? "text-white font-semibold" : "text-black font-medium"
+                className={`relative z-10 rounded-md px-4 py-2 text-lg transition-colors duration-300 ${
+                    currentOption === rightOption ? "font-semibold text-white" : "font-medium text-black"
                 }`}
             >
                 {rightOption}

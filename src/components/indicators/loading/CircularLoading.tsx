@@ -9,8 +9,8 @@ const CircularLoading = (props : IProps) => {
     if (!isLoading) return null;
 
     return (
-         <svg
-            className="animate-spin h-7 w-7 text-white"
+        <svg
+            className="size-7 animate-spin text-white"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"

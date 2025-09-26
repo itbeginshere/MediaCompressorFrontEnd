@@ -1,4 +1,4 @@
 export interface ImageCompress {
-    file : File;
-    quality : number;
+    file: File;
+    quality: number;
 }

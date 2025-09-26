@@ -2,7 +2,6 @@
   "env": {
     "browser": true,
     "es2020": true,
-    "jest": true,
     "node": true
   },
   "settings": {
@@ -15,7 +14,6 @@
     "plugin:react/recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:eslint/recommended",
     "plugin:tailwindcss/recommended"
   ],
   "parser": "@typescript-eslint/parser",
@@ -26,8 +24,17 @@
     "ecmaVersion": 11,
     "sourceType": "module"
   },
-  "plugins": ["react", "react-hooks", "@typescript-eslint", "tailwindcss"],
+  "plugins": [
+    "react",
+    "react-hooks",
+    "@typescript-eslint",
+    "tailwindcss"
+  ],
   "rules": {
+    "indent": [
+      "error",
+      4
+    ],
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     "react/prop-types": "off",
@@ -36,6 +43,42 @@
     "@typescript-eslint/no-non-null-assertion": "off",
     "tailwindcss/classnames-order": "warn",
     "tailwindcss/no-custom-classname": "warn",
-    "tailwindcss/no-contradicting-classname": "error"
+    "tailwindcss/no-contradicting-classname": "error",
+    "no-multi-spaces": "error",
+    "no-extra-semi": "error",
+    "no-trailing-spaces": "error",
+    "no-multiple-empty-lines": [
+      "error",
+      {
+        "max": 1,
+        "maxEOF": 0
+      }
+    ],
+    "@typescript-eslint/member-delimiter-style": [
+      "error",
+      {
+        "multiline": {
+          "delimiter": "semi",
+          "requireLast": true
+        },
+        "singleline": {
+          "delimiter": "semi",
+          "requireLast": false
+        }
+      }
+    ],
+    "@typescript-eslint/type-annotation-spacing": [
+      "error",
+      {
+        "before": false,
+        "after": true,
+        "overrides": {
+          "arrow": {
+            "before": true,
+            "after": true
+          }
+        }
+      }
+    ]
   }
 }

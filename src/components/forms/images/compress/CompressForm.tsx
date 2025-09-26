@@ -17,22 +17,22 @@ const ImageCompressForm = () => {
 
     const form = useAppForm({
         defaultValues: {
-            file: null, 
+            file: null,
             quality: 0,
-        } as ImageCompressFormValues, 
+        } as ImageCompressFormValues,
         validators: {
             onChange: ({ value }) => {
-                
+
                 const formErrorBuilder = new FormErrorBulider<ImageCompressFormValues>();
-                
+
                 if (value.file == null) {
                     formErrorBuilder.append('file', 'A file is required')
                 }
-                
+
                 if (value.quality <= 0) {
                     formErrorBuilder.append('quality', 'Quality must be greater than 0')
                 }
-                
+
                 if (value.quality > 100) {
                     formErrorBuilder.append('quality', 'Quality must be less than 100')
                 }
@@ -41,21 +41,21 @@ const ImageCompressForm = () => {
             },
         },
         onSubmit: async ({ value }) => {
-          
+
             try {
-                const payload : ImageCompress = {
-                    quality: value.quality, 
+                const payload: ImageCompress = {
+                    quality: value.quality,
                     file: value.file!,
                 }
-        
+
                 setIsProcessing(true);
-            
+
                 const response = await ImageHttpService.compress(payload);
-            
+
                 FileDownloadHelper.downloadBlob(response);
-            
+
                 setIsProcessing(false);
-            } catch(error) {
+            } catch (error) {
                 toast("An error occurred while compressing the image", { type: "error" });
                 console.error(error);
             } finally {
@@ -65,26 +65,28 @@ const ImageCompressForm = () => {
         }
     })
 
-    const handleFormSubmit = (event : FormEvent<HTMLFormElement>) => {
+    const handleFormSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         event.stopPropagation();
         form.handleSubmit();
     }
 
     return (
-        <form 
+        <form
             className="flex flex-col gap-4"
             onSubmit={handleFormSubmit}
         >
             <LinearLoading loading={isProcessing} />
-            <form.AppField 
+            <form.AppField
                 name="file"
-                children={(field) => <field.FormUploadFileField />}
-            />
-            <form.AppField 
+            >
+                {(field) => <field.FormUploadFileField />}
+            </form.AppField>
+            <form.AppField
                 name="quality"
-                children={(field) => <field.FormTextField label={'Quality'} type={"number"} />}
-            />
+            >
+                {(field) => <field.FormTextField label="Quality" type="number" min={1} max={100} />}
+            </form.AppField>
             <form.AppForm>
                 <form.FormSubscribeButton label={'Submit'} />
             </form.AppForm>

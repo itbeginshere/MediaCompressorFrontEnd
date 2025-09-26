@@ -3,18 +3,18 @@ import { DropzoneRootProps } from "react-dropzone";
 
 interface IProps {
     rootProps: DropzoneRootProps;
-    isDragActive : boolean;
-    children ?: ReactNode;
+    isDragActive: boolean;
+    children?: ReactNode;
 }
 
 const UploadContainer = (props: IProps) => {
-    
+
     const { rootProps, children, isDragActive } = props;
 
     if (isDragActive) {
         return (
-            <div 
-                {...rootProps} 
+            <div
+                {...rootProps}
                 style={{
                     position: "fixed",
                     top: 0,
@@ -26,7 +26,7 @@ const UploadContainer = (props: IProps) => {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    zIndex: 10, 
+                    zIndex: 10,
                     pointerEvents: "all",
                 }}
             />
@@ -34,10 +34,11 @@ const UploadContainer = (props: IProps) => {
     }
 
     return (
-        <div 
-            {...rootProps} 
-            children={children}
-        />
+        <div
+            {...rootProps}
+        >
+            {children}
+        </div>
     );
 }
 

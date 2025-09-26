@@ -13,11 +13,11 @@ const NumberInput = (props : IProps) => {
 
     return (
         <div className="flex flex-col gap-2">
-            <label htmlFor={name} className="font-medium self-center text-purple-900">{labelName}</label>
+            <label htmlFor={name} className="self-center font-medium text-purple-900">{labelName}</label>
             <input 
                 type="number"  
                 name={name}
-                className="border-2 border-purple-200 focus:border-purple-500 focus:outline-purple-500 p-2 rounded-md focus:bg-purple-200"
+                className="rounded-md border-2 border-purple-200 p-2 focus:border-purple-500 focus:bg-purple-200 focus:outline-purple-500"
                 value={value}
                 onChange={onChange}
             />

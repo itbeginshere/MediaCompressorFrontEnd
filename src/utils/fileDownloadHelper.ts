@@ -2,11 +2,11 @@ import { AxiosResponse } from "axios";
 
 export default class FileDownloadHelper {
 
-    public static downloadBlob(response : AxiosResponse<Blob>) : void {
-        
+    public static downloadBlob(response: AxiosResponse<Blob>): void {
+
         const contentDisposition = response.headers['content-disposition'] as string | null;
         const contentType = response.headers['content-type'] as string | null;
-      
+
         let filename = `downloaded_file.${contentType?.split('/')[1] ?? 'bin'}`;
 
         // Extracting the file name from the content disposition header
@@ -15,7 +15,7 @@ export default class FileDownloadHelper {
             let filenameMatch = contentDisposition.match(/filename\*\s*=\s*UTF-8''([^;]+)/i);
 
             if (filenameMatch && filenameMatch[1]) {
-                filename = decodeURIComponent(filenameMatch[1]); 
+                filename = decodeURIComponent(filenameMatch[1]);
             } else {
                 filenameMatch = contentDisposition.match(/filename="?([^";]+)"?/i);
                 if (filenameMatch && filenameMatch[1]) {
