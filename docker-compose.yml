@@ -1,0 +1,23 @@
+services:
+  web-dev:
+    build:
+      context: .
+      target: dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      NODE_ENV: development
+    stdin_open: true
+    tty: true
+
+  web-prod:
+    build:
+      context: .
+      target: production
+    ports:
+      - "80:80"
+    environment:
+      NODE_ENV: production
