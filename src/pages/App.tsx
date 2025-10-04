@@ -20,30 +20,30 @@ function App() {
     return (
         <section className="relative flex h-screen flex-col items-center justify-center overflow-hidden bg-gradient-to-b from-white to-gray-100">
             {
-                currentOption === 'Compress' && BLOB_CONFIGS.map((cfg, i) => (
+                currentOption === 'Compress' && BLOB_CONFIGS.map((config, index) => (
                     <CompressRectangle
-                        key={i}
-                        size={cfg.size}
-                        color={cfg.color}
-                        initialPosition={cfg.initialPosition}
+                        key={`compress-rectangle-${index}`}
+                        size={config.size}
+                        color={config.color}
+                        initialPosition={config.initialPosition}
                     />
                 ))
             }
             {
-                currentOption === 'Resize' && SHAPE_RECTANGLE_CONFIGS.map((cfg, i) => (
+                currentOption === 'Resize' && SHAPE_RECTANGLE_CONFIGS.map((config, index) => (
                     <ResizeRectangle
-                        key={i}
-                        width={cfg.width}
-                        height={cfg.height}
-                        color={cfg.color}
-                        initialPosition={cfg.initialPosition}
+                        key={`resize-rectangle-${index}`}
+                        width={config.width}
+                        height={config.height}
+                        color={config.color}
+                        initialPosition={config.initialPosition}
                     />
                 ))
             }
             <div className="z-0 flex max-w-lg flex-col items-center justify-center gap-4 rounded-lg border-2 border-purple-700 bg-purple-50 p-10">
                 <PrimaryToggle<ProcessOptions>
-                    leftOption="Compress"
-                    rightOption="Resize"
+                    leftOption={"Compress"}
+                    rightOption={"Resize"}
                     currentOption={currentOption}
                     onChange={handleOnOptionToggle}
                 />
