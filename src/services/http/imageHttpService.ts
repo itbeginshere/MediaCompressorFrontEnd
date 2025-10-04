@@ -11,7 +11,7 @@ export default class ImageHttpService {
         formData.append("quality", payload.quality.toString());
 
         return await axios.post<Blob>(
-            'http://localhost:8080/api/image/compress',
+            `${import.meta.env.VITE_API_URL}/image/compress`,
             formData,
             {
                 responseType: 'blob',
@@ -30,7 +30,7 @@ export default class ImageHttpService {
         formData.append("height", payload.height.toString());
 
         return await axios.post(
-            'http://localhost:8080/api/image/resize',
+            `${import.meta.env.VITE_API_URL}/image/resize`,
             formData,
             {
                 responseType: 'blob',
