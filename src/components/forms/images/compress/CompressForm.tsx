@@ -18,7 +18,7 @@ const ImageCompressForm = () => {
     const form = useAppForm({
         defaultValues: {
             file: null,
-            quality: 0,
+            quality: 100,
         } as ImageCompressFormValues,
         validators: {
             onChange: ({ value }) => {

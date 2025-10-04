@@ -54,7 +54,7 @@ const FormUploadFileField = () => {
             }
             {
                 acceptedFiles.length > 0 && (
-                    <p>File Selected: {acceptedFiles[0].name}</p>
+                    <p className="pt-2">File Selected: {acceptedFiles[0].name}</p>
                 )
             }
         </div>
